@@ -1,5 +1,21 @@
 import { getApi } from "./apicall.service";
 import { upsertPosts } from "./post.service";
-import { upsertSearch, getPostsBySearchKey } from "./search.service";
+import {
+  upsertSearch,
+  getPostsBySearchKey,
+  getSearchKeyData,
+  upsertSearchTrack,
+} from "./search.service";
 
-export { getApi, upsertPosts, upsertSearch, getPostsBySearchKey };
+import { updateUserHistory, upsertUser } from "./user.service";
+
+export {
+  getApi,
+  getPostsBySearchKey,
+  getSearchKeyData,
+  upsertPosts,
+  upsertSearch,
+  upsertUser,
+  updateUserHistory,
+  upsertSearchTrack,
+};
