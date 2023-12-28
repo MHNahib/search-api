@@ -1,11 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-
-interface PostDocument extends Document {
-  userId: number;
-  postId: string;
-  title: string;
-  body: string;
-}
+import { PostDocument } from "../interfaces";
 
 const postSchema = new Schema<PostDocument>(
   {

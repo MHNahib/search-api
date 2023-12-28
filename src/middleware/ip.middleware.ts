@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { getClientIP } from "../utils";
-
 interface CustomRequest extends Request {
   clientIP?: string;
 }

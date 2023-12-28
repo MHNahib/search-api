@@ -1,10 +1,10 @@
 import { PORT } from "./configs";
 import app from "./app";
-import connectToDatabase from "./db";
 import setupRoutes from "./routes";
 import { errorHandler, notFoundHandler } from "./middleware";
+import startup from "./startup";
 
-connectToDatabase();
+startup();
 setupRoutes(app);
 
 app.use(notFoundHandler);
