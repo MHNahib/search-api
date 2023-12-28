@@ -65,7 +65,7 @@ const searchController: RequestHandler = async (
       "OK"
     );
   } catch (error) {
-    console.log("error: ", error);
+    // console.log("error: ", error);
     response(
       res,
       StatusCodes.INTERNAL_SERVER_ERROR,

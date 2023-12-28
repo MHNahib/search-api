@@ -19,9 +19,7 @@ const upsertPosts = async (posts: any[]): Promise<any> => {
     const updatedPosts = await PostModel.find({
       postId: { $in: posts.map((p) => p.id) },
     });
-    console.log(
-      `Upserted ${result.upsertedCount} posts, updated ${result.modifiedCount} posts`
-    );
+
     return updatedPosts;
   } catch (error) {
     console.error("Error upserting posts:", error);

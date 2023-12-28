@@ -17,7 +17,6 @@ const upsertUser = async (ipAddress: string): Promise<any> => {
   try {
     const result = await UserModel.findOneAndUpdate(filter, update, options);
 
-    console.log(`Upserted user ${result}`);
     return result;
   } catch (error) {
     console.error("Error upsertUser:", error);

@@ -22,7 +22,6 @@ const upsertSearch = async (keyword: string, postId: any[]): Promise<any> => {
       options
     );
 
-    console.log(`Upserted search ${result}`);
     return result;
   } catch (error) {
     console.error("Error upserting search:", error);
@@ -76,7 +75,6 @@ const upsertSearchTrack = async (
   userId: string,
   keywordId: string
 ): Promise<any> => {
-  console.log("upsertSearchTrack: userId- ", userId, keywordId);
   try {
     const filter = { keyword: keywordId };
 
@@ -95,8 +93,6 @@ const upsertSearchTrack = async (
       update,
       options
     );
-
-    console.log("-------> searchTrack: ", searchTrack);
 
     const findSearchTrackOnSearchKeyword = await getSearchKeywodById(keywordId);
     if (!findSearchTrackOnSearchKeyword) {
