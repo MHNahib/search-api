@@ -1,3 +1,4 @@
+import { errorHandler, notFoundHandler } from "./errorHandler.middleware";
 import ipMiddleware from "./ip.middleware";
 
-export { ipMiddleware };
+export { ipMiddleware, errorHandler, notFoundHandler };
