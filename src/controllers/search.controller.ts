@@ -1,7 +1,12 @@
 import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { extractString, response, searchPosts } from "../utils";
-import { getApi } from "../services";
+import {
+  getApi,
+  upsertPosts,
+  upsertSearch,
+  getPostsBySearchKey,
+} from "../services";
 import { EXTERNAL_API } from "../configs";
 
 const searchController: RequestHandler = async (
@@ -11,14 +16,7 @@ const searchController: RequestHandler = async (
   try {
     const { keyword } = req.query;
 
-    const processedKeyword = extractString(keyword as string | undefined);
-
-    let posts = [];
-
-    if (EXTERNAL_API) {
-      const allPosts = await getApi(EXTERNAL_API);
-      posts = searchPosts(allPosts, processedKeyword);
-    } else {
+    if (!EXTERNAL_API) {
       return response(
         res,
         StatusCodes.INTERNAL_SERVER_ERROR,
@@ -26,6 +24,21 @@ const searchController: RequestHandler = async (
         null,
         "Internal Server Error"
       );
+    }
+
+    const processedKeyword = extractString(keyword as string | undefined);
+
+    let posts = [];
+
+    posts = await getPostsBySearchKey(processedKeyword);
+
+    if (posts?.length === 0) {
+      const allPosts = await getApi(EXTERNAL_API);
+      const filtaredPosts = searchPosts(allPosts, processedKeyword);
+
+      posts = await upsertPosts(filtaredPosts);
+      const postIds = posts?.filter((post: any) => post._id) || [];
+      await upsertSearch(processedKeyword, postIds);
     }
 
     return response(
@@ -36,7 +49,7 @@ const searchController: RequestHandler = async (
         count: posts?.length,
         posts: posts,
       },
-      "Accepted"
+      "OK"
     );
   } catch (error) {
     console.log("error: ", error);
