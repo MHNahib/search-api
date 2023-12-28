@@ -1,15 +1,5 @@
 import { Schema, model, Document, Types } from "mongoose";
-
-interface PostDocument extends Document {
-  keyword: string;
-  posts: Types.ObjectId[];
-  track: Types.ObjectId;
-}
-
-interface searchTrackDocument extends Document {
-  users: Types.ObjectId[];
-  keyword: Types.ObjectId;
-}
+import { PostDocument, searchTrackDocument } from "../interfaces";
 
 const searchKeywordSchema = new Schema<PostDocument>(
   {

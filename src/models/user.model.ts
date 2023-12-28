@@ -1,15 +1,5 @@
 import { Schema, model, Document, Types } from "mongoose";
-
-interface UserDocument extends Document {
-  ipAddress: string;
-  location: string;
-}
-
-interface UserHistoryDocument extends Document {
-  date: Date;
-  user: Types.ObjectId | UserDocument;
-  keywords: Types.ObjectId[];
-}
+import { UserDocument, UserHistoryDocument } from "../interfaces";
 
 const userSchema = new Schema<UserDocument>(
   {
