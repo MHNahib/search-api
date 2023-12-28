@@ -1,4 +1,4 @@
-import { getApi } from "./apicall.service";
+import { getApi } from "./apiCall.service";
 import { upsertPosts, getAllPosts } from "./post.service";
 import {
   upsertSearch,
