@@ -9,8 +9,12 @@ import {
 } from "../services";
 import { EXTERNAL_API } from "../configs";
 
+interface CustomRequest extends Request {
+  clientIP?: string;
+}
+
 const searchController: RequestHandler = async (
-  req: Request,
+  req: CustomRequest,
   res: Response
 ): Promise<any> => {
   try {
