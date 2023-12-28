@@ -1,3 +1,4 @@
-import homecontroller from "./home.controller";
+import homeController from "./home.controller";
+import searchController from "./search.controller";
 
-export { homecontroller };
+export { homeController, searchController };

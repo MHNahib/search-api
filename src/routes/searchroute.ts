@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { homeController } from "../controllers";
+import { searchController } from "../controllers";
 
 const router: Router = Router();
 
-router.get("/", homeController);
+router.get("/", searchController);
 
 export default router;
