@@ -29,4 +29,15 @@ const upsertPosts = async (posts: any[]): Promise<any> => {
   }
 };
 
-export { upsertPosts };
+const getAllPosts = async (): Promise<any> => {
+  try {
+    const result = await PostModel.find({});
+
+    return result;
+  } catch (error) {
+    console.error("Error getAllPosts:", error);
+    throw error;
+  }
+};
+
+export { upsertPosts, getAllPosts };
