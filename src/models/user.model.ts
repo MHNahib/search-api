@@ -20,7 +20,8 @@ const userSchema = new Schema<UserDocument>(
 
     location: {
       type: String,
-      required: true,
+      required: false,
+      default: null,
     },
   },
   { timestamps: true }

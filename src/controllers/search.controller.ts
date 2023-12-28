@@ -6,11 +6,16 @@ import {
   upsertPosts,
   upsertSearch,
   getPostsBySearchKey,
+  updateUserHistory,
 } from "../services";
 import { EXTERNAL_API } from "../configs";
 
+interface CustomRequest extends Request {
+  clientIP?: string;
+}
+
 const searchController: RequestHandler = async (
-  req: Request,
+  req: CustomRequest,
   res: Response
 ): Promise<any> => {
   try {
@@ -40,6 +45,9 @@ const searchController: RequestHandler = async (
       const postIds = posts?.filter((post: any) => post._id) || [];
       await upsertSearch(processedKeyword, postIds);
     }
+
+    const ipAddress = req.clientIP;
+    await updateUserHistory(ipAddress as string, processedKeyword);
 
     return response(
       res,
