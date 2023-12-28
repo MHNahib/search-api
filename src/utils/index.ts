@@ -1,3 +1,5 @@
-import response from "./responseManager";
+import response from "./responseManager.utils";
+import { searchPosts } from "./search.utils";
+import { extractString } from "./stringManipulation.utils";
 
-export default response;
+export { response, extractString, searchPosts };
