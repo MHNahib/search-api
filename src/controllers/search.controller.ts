@@ -7,6 +7,7 @@ import {
   upsertSearch,
   getPostsBySearchKey,
   updateUserHistory,
+  getAllPosts,
 } from "../services";
 import { EXTERNAL_API } from "../configs";
 
@@ -31,23 +32,27 @@ const searchController: RequestHandler = async (
       );
     }
 
-    const processedKeyword = extractString(keyword as string | undefined);
-
     let posts = [];
 
-    posts = await getPostsBySearchKey(processedKeyword);
+    if (!keyword) {
+      posts = await getAllPosts();
+    } else {
+      const processedKeyword = extractString(keyword as string | undefined);
 
-    if (posts?.length === 0) {
-      const allPosts = await getApi(EXTERNAL_API);
-      const filtaredPosts = searchPosts(allPosts, processedKeyword);
+      posts = await getPostsBySearchKey(processedKeyword);
 
-      posts = await upsertPosts(filtaredPosts);
-      const postIds = posts?.filter((post: any) => post._id) || [];
-      await upsertSearch(processedKeyword, postIds);
+      if (posts?.length === 0) {
+        const allPosts = await getApi(EXTERNAL_API);
+        const filtaredPosts = searchPosts(allPosts, processedKeyword);
+
+        posts = await upsertPosts(filtaredPosts);
+        const postIds = posts?.filter((post: any) => post._id) || [];
+        await upsertSearch(processedKeyword, postIds);
+      }
+
+      const ipAddress = req.clientIP;
+      await updateUserHistory(ipAddress as string, processedKeyword);
     }
-
-    const ipAddress = req.clientIP;
-    await updateUserHistory(ipAddress as string, processedKeyword);
 
     return response(
       res,
