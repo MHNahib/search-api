@@ -2,6 +2,9 @@
 
 For this project, I have created a backend REST API using Node.js with Express and MongoDB as the database. The API will allow users to search for posts based on a provided keyword. The external API used for this example is https://jsonplaceholder.typicode.com/posts.
 
+**Want to check online?**
+[🚀Live Link](https://simple-search-api.onrender.com/) [📕Postman Documentation](https://documenter.getpostman.com/view/11138971/2s9YsDjEPS)
+
 ### Technologies Used:
 
 - Node.js
